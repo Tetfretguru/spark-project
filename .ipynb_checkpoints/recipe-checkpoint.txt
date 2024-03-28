@@ -1,0 +1,5 @@
+# Copy file example into container
+docker cp -L test_spark.py spark-project_spark-master_1:/opt/bitnami/spark/test_spark.py
+
+# Spark submit pipeline example
+docker exec spark-project_spark-master_1 spark-submit --master spark://172.23.0.2:7077 test_spark_2.py
