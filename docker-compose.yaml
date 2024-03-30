@@ -16,7 +16,25 @@ services:
       - ./outputs:/opt/bitnami/spark/outputs
       - ./tests:/opt/bitnami/spark/tests
 
-  spark-worker:
+  spark-worker-1:
+    image: bitnami/spark:3
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      INPUTS_PATH: /opt/bitnami/spark/inputs
+      OUTPUTS_PATH: /opt/bitnami/spark/outputs
+    volumes:
+      - ./pipelines:/opt/bitnami/spark/pipelines
+      - ./inputs:/opt/bitnami/spark/inputs
+      - ./outputs:/opt/bitnami/spark/outputs
+      - ./tests:/opt/bitnami/spark/tests
+
+  spark-worker-2:
     image: bitnami/spark:3
     command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     depends_on:
