@@ -7,6 +7,14 @@ services:
     ports:
       - "9090:8080"
       - "7077:7077"
+    environment:
+      INPUTS_PATH: /opt/bitnami/spark/inputs
+      OUTPUTS_PATH: /opt/bitnami/spark/outputs
+    volumes:
+      - ./pipelines:/opt/bitnami/spark/pipelines
+      - ./inputs:/opt/bitnami/spark/inputs
+      - ./outputs:/opt/bitnami/spark/outputs
+      - ./tests:/opt/bitnami/spark/tests
 
   spark-worker:
     image: bitnami/spark:3
@@ -25,4 +33,3 @@ services:
       - ./inputs:/opt/bitnami/spark/inputs
       - ./outputs:/opt/bitnami/spark/outputs
       - ./tests:/opt/bitnami/spark/tests
-

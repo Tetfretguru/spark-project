@@ -22,20 +22,14 @@ pipeline_name=$1
 
 # Check if the pipeline name is "test"
 if [ "$pipeline_name" == "test" ]; then
-    docker exec spark-project_spark-worker_1 spark-submit --master spark://spark-master:7077 tests/test_spark_submit.py
-    exit 1
-fi
-
-# Check if the pipeline exists
-if [ ! -f "pipelines/${pipeline_name}.py" ]; then
-    echo "Pipeline '$pipeline_name' not found"
+    docker exec spark-project_spark-master_1 spark-submit --master spark://spark-master:7077 tests/test_spark_submit.py
     exit 1
 fi
 
 
 # Check if the --show flag is provided
 if [ "$2" == "--show" ]; then
-    docker exec spark-project_spark-worker_1 spark-submit --master spark://spark-master:7077 $pipeline_name --show
+    docker exec spark-project_spark-master_1 spark-submit --master spark://spark-master:7077 "${pipeline_name}" --show
 else
-    docker exec spark-project_spark-worker_1 spark-submit --master spark://spark-master:7077 $pipeline_name
+    docker exec spark-project_spark-master_1 spark-submit --master spark://spark-master:7077 "${pipeline_name}"
 fi
