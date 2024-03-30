@@ -18,8 +18,11 @@ services:
       SPARK_WORKER_CORES: 2
       SPARK_WORKER_MEMORY: 1g
       SPARK_MASTER_URL: spark://spark-master:7077
+      INPUTS_PATH: /opt/bitnami/spark/inputs
+      OUTPUTS_PATH: /opt/bitnami/spark/outputs
     volumes:
       - ./pipelines:/opt/bitnami/spark/pipelines
       - ./inputs:/opt/bitnami/spark/inputs
       - ./outputs:/opt/bitnami/spark/outputs
+      - ./tests:/opt/bitnami/spark/tests
 
