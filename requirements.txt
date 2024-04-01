@@ -1,3 +1,0 @@
-pandas==2.2.1
-pyspark=3.5.0
-jupyterlab
