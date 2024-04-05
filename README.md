@@ -80,3 +80,4 @@ Outputs is saved in `outputs/world_pipulation/world_population_growth.parquet`
 
 # License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+World Population Dataset Owner/Source: [CHANDAN CHOUDHURY -Kaggle](https://www.kaggle.com/datasets/chandanchoudhury/world-population-dataset)

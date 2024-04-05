@@ -3,16 +3,35 @@
 
 create-env() {
     conda create -n spark-project python=3.8
-    conda activate spark-project
-    conda install pyspark==3.3.0
+    conda activate spark-project -y
+    conda install pyspark==3.3.0 -y
+    conda install jupyterlab -y
+    conda intall matplotlib -y
 }
 
 start() {
-    mkdir -p inputs
-    mkdir -p outputs
-    echo "Creating inputs and outputs directories and initializing docker containers..."
-    docker-compose up -d --remove-orphans
-    echo "Docker containers are up and running!"
+    _start() {
+        mkdir -p inputs
+        mkdir -p outputs
+        echo "Creating inputs and outputs directories and initializing docker containers..."
+        docker-compose up -d --remove-orphans
+        echo "Docker containers are up and running!"
+    }
+    # Check if the spark-project conda environment exists
+    if conda env list | grep -q "spark-project"; then
+        echo "The spark-project conda environment already exists."
+        _start
+    else
+        echo "The spark-project conda environment does not exist."
+        read -p "Would you like to create the spark-project conda environment? (y/n) " create_env
+        if [ "$create_env" == "y" ]; then
+            create-env
+            _start
+        else
+            echo "WARNING: Proceeding without creating the spark-project conda environment."
+            _start
+        fi
+    fi
 }
 
 stop() {
